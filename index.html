@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	 <!-- customized css -->
+	<link rel="stylesheet" href="main.css" >
+
+	<title>Trubshaw Engineer Coding Test</title>
+  </head>
+  <body>
+  <h1>Trubshaw Engineer Coding Test</h1>
+  <!-- main div -->
+  <div class="container">
+  
+	<!-- 1st question -->
+	<div class="form-group" id="modal1">
+    <h2>What is your name?</h2>
+    <input type="text" class="form-control" id="name" onkeydown="disableNameNextBtn();" onkeyup="checkName();" aria-describedby="emailHelp" placeholder="Enter your name" maxlength="30">
+	<p class="help" id="nameHelp" class="form-text text-muted"></p>
+	<button type="button" class="btn btn-primary " id="nameNextBtn" onclick="nextStep(2);" hidden >Next</button>
+	<div class="clear"></div>
+	</div>
+	<!-- end of 1st question -->
+
+	<!-- 2nd question -->
+	<div class="form-group" id="modal2" hidden>
+    <h2>What is your email?</h2>
+    <input type="text" class="form-control" id="email" onkeydown="disableEmailNextBtn();" onkeyup="checkEmail();" aria-describedby="emailHelp" placeholder="Enter your email" maxlength="255">
+    <p class="help" id="emailHelp" class="form-text text-muted"></p>
+	<button type="button" class="btn btn-primary" id="emailPrevBtn" onclick="prevStep(1);" hidden >Back</button>
+	<button type="button" class="btn btn-primary" id="emailNextBtn" onclick="nextStep(3);" hidden >Next</button>	
+	<div class="clear"></div>
+	</div>
+	<!-- end of 2nd question -->
+	
+	<!-- 3rd question -->
+	<div class="form-group" id="modal3" hidden>
+	<h2>What level of threat are you reporting?</h2>
+	
+	<!-- 1st choice -->
+	<div class="form-check radio">
+	<input class="form-check-input" type="radio" onclick="checkRisk(1);" name="flexRadioDefault" id="flexRadioDefault1">
+	<label class="form-check-label" for="flexRadioDefault1">Low</label>
+	</div>
+	<div class="clear"></div>
+	
+	<!-- 2nd choice -->
+	<div class="form-check radio">
+	<input class="form-check-input" type="radio" onclick="checkRisk(2);" name="flexRadioDefault" id="flexRadioDefault2">
+	<label class="form-check-label" for="flexRadioDefault2">Medium</label>
+	</div>
+	<div class="clear"></div>
+	
+	<!-- 3rd choice -->
+	<div class="form-check radio">
+	<input class="form-check-input" type="radio" onclick="checkRisk(3);" name="flexRadioDefault" id="flexRadioDefault3">
+	<label class="form-check-label" for="flexRadioDefault3">High</label>
+	</div>
+	<div class="clear"></div><br />
+	
+	<button type="button" class="btn btn-primary" id="levelPrevBtn" onclick="prevStep(2);" >Back</button>
+	<button type="button" class="btn btn-primary" id="levelNextBtn" onclick="nextStep(4);" hidden >Next</button>
+	<div class="clear"></div>
+	
+	</div>
+	<!-- end of 3rd question -->
+	
+	<!-- preview -->
+	<div class="form-group" id="modal4" hidden>
+    <h2 style="font-size:2rem;">Preview</h2>
+	<br/><hr />
+	<p><b>Question: What is your name?</b></p>
+	<p id="answer1" ></p><br />
+	<p><b>Question: What is your email?</b></p>
+	<p id="answer2" ></p><br />
+	<p><b>Question: What level of threat are you reporting?</b></p>
+	<p id="answer3" ></p><br />
+	<hr /><br/>
+	<button type="button" class="btn btn-primary" id="choicePrevBtn" onclick="prevStep(3);" >Back</button>
+	<div class="clear"></div>
+	</div>
+	<!-- end of preview -->
+
+	</div>
+	<!-- end of main div -->
+	
+	<!-- bottom bar -->
+	<div class="bar" ><p style="padding-top:0.5rem; margin-left:1rem;">Developed by Jerzy Bajer</p></div>
+	
+  </body>
+</html>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+
+// variable used to store level of risk reported by user
+var riskLevel = "";
+
+// variable stores f user reached final step preview, once user reach preview user can go backward forward
+var finalStep = false;
+
+// function validates name, name must contain between 2 and 25 characters, allows letters, space, ~ and ' 
+function validateName(name)
+{
+var regex = "^(?=.{2,25}$)[a-zA-Z' ]+(?:[-'\s][a-zA-Z' ]+)*$";
+return name.match(regex);
+}
+// =========================
+
+// function checks and valdates name
+function checkName()
+{
+	if(validateName(document.getElementById("name").value))
+	{
+	document.getElementById("nameNextBtn").hidden = false;
+	document.getElementById("nameHelp").innerHTML = "Name is valid";
+	document.getElementById("nameHelp").style.color = "#0d6efd";
+	}
+	else
+	{
+	document.getElementById("nameNextBtn").hidden = true;
+	document.getElementById("nameHelp").innerHTML = "Name must contain between 2 and 25 characters. Capital case" 
+	+" and lower case letters are allowed. Additionally space(   ), hyphen symbol(~) and single quote( ' ) are allowed.";
+	document.getElementById("nameHelp").style.color = "#f00";
+	}
+}
+// ============================
+
+// function temporarily disables the next button for name
+function disableNameNextBtn()
+{
+document.getElementById("nameNextBtn").hidden = true;
+}
+// ============================
+
+
+// function validates email address
+function validateEmail(email)
+{
+var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+return email.match(regex);
+}
+// ============================
+
+// function checks and valdates email address
+function checkEmail()
+{
+	if(validateEmail(document.getElementById("email").value))
+	{
+	document.getElementById("emailNextBtn").hidden = false;
+	document.getElementById("emailHelp").innerHTML = "Email is valid";
+	document.getElementById("emailHelp").style.color = "#0d6efd";
+	}
+	else
+	{
+	document.getElementById("emailNextBtn").hidden = true;
+	document.getElementById("emailHelp").innerHTML = "Enter valid email address.";
+	document.getElementById("emailHelp").style.color = "#f00";
+	}
+}
+// ============================
+
+// function temporarily disables the next button for email 
+function disableEmailNextBtn()
+{
+document.getElementById("emailNextBtn").hidden = true;
+}
+// ============================
+
+// function checks and gets level of risk chosen by user
+function checkRisk(risk)
+{
+document.getElementById("levelNextBtn").hidden = false;
+
+switch(risk)
+	{
+		case 1: { riskLevel = "Low"; break; }
+		case 2: { riskLevel = "Medium"; break; }
+		case 3: { riskLevel = "High"; break; }
+	}
+}
+// ============================
+
+// functon gets and displays preview
+function getPreview()
+{
+document.getElementById("answer1").innerHTML = "Answer: "+document.getElementById("name").value;
+document.getElementById("answer2").innerHTML = "Answer: "+document.getElementById("email").value;
+document.getElementById("answer3").innerHTML = "Answer: "+riskLevel;
+}
+// ============================
+
+// function allows to go to the next question / step
+function nextStep(step)
+{
+	switch(step)
+	{
+		case 2:
+			{
+			document.getElementById("modal1").hidden = true;
+			document.getElementById("modal2").hidden = false;
+			if(finalStep){document.getElementById("emailPrevBtn").hidden = false;}
+			break;
+			}
+		case 3:
+			{
+			document.getElementById("modal2").hidden = true;
+			document.getElementById("modal3").hidden = false;
+			break;
+			}
+		case 4:
+			{
+			document.getElementById("modal3").hidden = true;
+			document.getElementById("modal4").hidden = false;
+			finalStep = true;
+			getPreview();
+			break;
+			}
+	}
+}
+// ============================
+
+// function allows to go to the previous question / step
+function prevStep(step)
+{
+	switch(step)
+	{
+		case 1:
+			{
+			document.getElementById("modal1").hidden = false;
+			document.getElementById("modal2").hidden = true;
+			break;
+			}
+		case 2:
+			{
+			document.getElementById("modal2").hidden = false;
+			document.getElementById("modal3").hidden = true;
+			if(finalStep){document.getElementById("emailPrevBtn").hidden = false;}
+			break;
+			}
+		case 3:
+			{
+			document.getElementById("modal3").hidden = false;
+			document.getElementById("modal4").hidden = true;
+			break;
+			}
+	}
+}
+// ============================
+
+</script>
+

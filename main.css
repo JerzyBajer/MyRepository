@@ -1,0 +1,66 @@
+/* --------- main container ------------------ */
+.container{min-width:81rem;max-width:81rem;margin:0rem auto;text-align:center;}
+
+/* ----- headers and paragraphs ---------- */
+h1 {background-color: #0d6efd;max-height: 3rem;padding: 0.75rem;color: #fff;text-align: center;font-size: 1.5rem;}
+h2 {text-align: justify;margin-top:2rem; font-size: 1.25rem;}
+p{text-align:justify; font-size:1.25rem;margin:0rem;}
+
+
+/* ------- help text ------------------- */
+.help{text-align:justify;font-size:1rem;margin-bottom:2rem;}
+
+
+
+/* --------- overrides bootstrap ------- */
+.btn-primary {float:left;margin-right:2rem;margin-bottom:4rem;box-sizing:border-box;color: #fff; background-color: #0d6efd;  border-radius: 0.2rem; cursor:pointer; border: none; font-size: 1.25rem; padding: 0.5rem;  min-width: 8rem; max-width: 8rem; min-height: 3rem; max-height: 3rem;overflow: hidden; } 
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active{box-sizing: border-box;  background-color: #0b5ed7; border:2px solid #97b8f0; }	
+.radio{float:left;}
+
+/* --------- clears float ------- */
+.clear{clear:both;}
+/* ------ bottom bar ----------- */
+.bar {min-width:100%;min-height:3rem; color:#fff; background-color:#0d6efd; position:fixed; bottom:0;overflow: hidden; }
+
+
+@media (max-width: 1365.98px)	
+{  
+/* ----- main container ----------- */
+.container{min-width:72rem;max-width:72rem;}
+
+}
+
+/* -------- Large devices (desktops, less than 1280px) --------*/
+@media (max-width: 1199.98px)	
+{ 
+/* ------ main container ------------- */
+.container{min-width:60rem;max-width:60rem;}
+}
+
+/* --- Medium devices (tablets, less than 992px) -----------*/
+@media (max-width: 991.98px) 	
+{	
+/* ---- main container ------------------ */
+.container{min-width:48rem;max-width:48rem;}
+}
+
+/* ----- Smaller devices ------------*/
+@media (max-width: 799.98px)	
+{
+/* ------- main container ----------- */
+.container{min-width:36rem;max-width:36rem;}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 639.98px) 
+{
+/* ------ main container -------------- */
+.container {min-width:30rem; max-width: 30rem;}
+}
+
+/* Extra small devices (portrait phones, less than 480px) */
+@media (max-width: 480px)
+{
+/* ------ main container ------- */
+.container{min-width:20rem;max-width:20rem;}
+}
